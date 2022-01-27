@@ -1,0 +1,63 @@
+version: '3'
+
+
+networks:
+  selenoid:
+    external:
+      name: selenoid
+
+services:
+  selenoid:
+    networks:
+      selenoid: null
+    image: aerokube/selenoid:latest-release
+    ports:
+      - "4444:4444"
+    volumes:
+      - ./config/browsers.json:/etc/selenoid/browsers.json
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/video:/opt/selenoid/video
+      - ./config/logs:/opt/selenoid/logs"
+    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs","-container-network", "selenoid"]
+
+  selenoid-ui:
+    networks:
+      selenoid: null
+    image: aerokube/selenoid-ui:latest-release
+    links:
+      - selenoid
+    ports:
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]
+
+#  ui-autotest:
+#    network_mode: bridge
+#    container_name: ui-autotests
+#    build: .
+#    links:
+#      - selenoid
+#      - selenoid-ui
+#    networks:
+#      selenoid: null
+#    volumes:
+#      - ./:/code
+#    command: sh -c "cd code && python test.py"
+##
+#  allure:
+#    network_mode: bridge
+#    image: "frankescobar/allure-docker-service"
+#    environment:
+#      CHECK_RESULTS_EVERY_SECONDS: 1
+#      KEEP_HISTORY: 1
+#    ports:
+#      - "5050:5050"
+#    volumes:
+#      - /allure-results:/app/allure-results
+#      - /allure-reports:/app/default-reports
+#    networks:
+#      selenoid: null
+
+#networks:
+#  selenoid:
+#    external:
+#      name: selenoid
