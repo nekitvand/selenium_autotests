@@ -6,23 +6,21 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 
-class FindAction:
+class ElementAction:
 
     def __init__(self, driver):
         self.driver = driver
         self.test_url = None
 
-
     def get_attribute_by_element(self, element, name):
         return element.get_attribute(name)
-
 
     def scroll_to_element(self, element):
         return element.location_once_scrolled_into_view
 
     @classmethod
-    def click(cls, web_element):
-        web_element.click()
+    def click(cls, element):
+        element.click()
 
     @classmethod
     def send(cls, web_element, text):

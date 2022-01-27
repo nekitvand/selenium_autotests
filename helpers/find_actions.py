@@ -12,22 +12,18 @@ class FindAction:
         self.test_url = None
 
     def find(self, locator, timeout=10):
-        # type: (Tuple[str, str], int) -> WebElement
         return WebDriverWait(self.driver, timeout, poll_frequency=1). \
             until(EC.presence_of_element_located(locator))
 
     def find_visible(self, locator, timeout=10):
-        # type: (Tuple[str, str], int) -> WebElement
         return WebDriverWait(self.driver, timeout, poll_frequency=1). \
             until(EC.visibility_of_element_located(locator))
 
     def finds(self, locator, timeout=10):
-        # type: (Tuple[str, str], int) -> List[WebElement]
         return WebDriverWait(self.driver, timeout, poll_frequency=1). \
             until(EC.presence_of_all_elements_located(locator))
 
     def finds_visible(self, locator, timeout=10):
-        # type: (Tuple[str, str], int) -> List[WebElement]
         return WebDriverWait(self.driver, timeout, poll_frequency=1). \
             until(EC.visibility_of_all_elements_located(locator),
                   message=f"Can't find elements by locator {locator}")
