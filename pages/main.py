@@ -1,21 +1,18 @@
-from base import Base
+from base import Base, Locators
+
 
 class MainPageLocators:
-    pass
-
-
+    TABS = (Locators.CSS_SELECTOR, ".tm-main-menu__section-content a")
 
 
 class MainPage(Base):
 
-    def __init__(self, driver):
-        pass
+    def select_all_tabs(self):
+        """Сбор всех вкладок меню"""
+        return self.FindAction.finds(MainPageLocators.TABS)
 
-
-class Null(MainPage):
-
-    def __init__(self, driver):
-        super().__init__(driver)
-
-    def xxx(self):
-        self.FindAction.find()
+    def click_to_tabs_by_name(self, tab_name):
+        tabs = self.select_all_tabs()
+        for tab in tabs:
+            if tab_name in self.ElementAction.get_text_content(tab):
+                return self.ElementAction.click(tab)

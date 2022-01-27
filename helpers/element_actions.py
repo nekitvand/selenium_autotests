@@ -30,3 +30,7 @@ class ElementAction:
     @classmethod
     def get_text(cls, element):
         return element.text
+
+    @classmethod
+    def get_text_content(cls, element):
+        return element.get_attribute('textContent')

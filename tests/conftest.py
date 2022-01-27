@@ -12,7 +12,7 @@ def determine_scope(fixture_name, config):
 
 def pytest_addoption(parser):
     parser.addoption('--browser', action="store", default="chrome")
-    parser.addoption('--remote_url', action="store", default='http://selenoid:4444/wd/hub')
+    parser.addoption('--remote_url', action="store", default='http://localhost:4444/wd/hub')
 
 
 @pytest.fixture(scope=determine_scope)
@@ -59,6 +59,7 @@ class Browser:
 @pytest.fixture(scope=determine_scope)
 def browser(params_builder):
     driver = Browser(params_builder).remote_browser()
+    driver.get("https://habr.com/ru")
     yield driver
     driver.close()
     driver.quit()

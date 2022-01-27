@@ -1,7 +1,5 @@
 from dataclasses import dataclass
-
 from selenium.webdriver.common.by import By
-
 from helpers.find_actions import FindAction
 from helpers.element_actions import ElementAction
 
