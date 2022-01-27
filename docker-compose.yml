@@ -30,34 +30,44 @@ services:
       - "8080:8080"
     command: ["--selenoid-uri", "http://selenoid:4444"]
 
-#  ui-autotest:
-#    network_mode: bridge
-#    container_name: ui-autotests
-#    build: .
-#    links:
-#      - selenoid
-#      - selenoid-ui
-#    networks:
-#      selenoid: null
-#    volumes:
-#      - ./:/code
-#    command: sh -c "cd code && python test.py"
-##
-#  allure:
-#    network_mode: bridge
-#    image: "frankescobar/allure-docker-service"
-#    environment:
-#      CHECK_RESULTS_EVERY_SECONDS: 1
-#      KEEP_HISTORY: 1
-#    ports:
-#      - "5050:5050"
-#    volumes:
-#      - /allure-results:/app/allure-results
-#      - /allure-reports:/app/default-reports
-#    networks:
-#      selenoid: null
+  ui-autotest:
+    stdin_open: true # docker run -i
+    tty: true
+    container_name: ui-autotests
+    build: .
+    links:
+      - selenoid
+      - selenoid-ui
+      - allure
+    depends_on:
+      - allure
+      - selenoid-ui
+      - selenoid
+    networks:
+      selenoid: null
+    volumes:
+      - ./:/code
 
-#networks:
-#  selenoid:
-#    external:
-#      name: selenoid
+
+  allure:
+    image: "frankescobar/allure-docker-service"
+    environment:
+      CHECK_RESULTS_EVERY_SECONDS: 1
+      KEEP_HISTORY: 1
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./allure-results:/app/allure-results
+      - ./allure-reports:/app/default-reports
+    networks:
+      selenoid: null
+
+  allure-ui:
+    image: "frankescobar/allure-docker-service-ui"
+    environment:
+      ALLURE_DOCKER_PUBLIC_API_URL: "http://localhost:5050"
+      ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
+    ports:
+      - "5252:5252"
+    networks:
+      selenoid: null
