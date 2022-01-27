@@ -1,4 +1,7 @@
+import time
+
 from selenium import webdriver
+import send_allure
 
 
 
@@ -13,8 +16,10 @@ def test_x():
     }
 
     driver = webdriver.Remote(
-        command_executor="http://localhost:4444/wd/hub",
+        command_executor="http://selenoid:4444/wd/hub",
         desired_capabilities=capabilities)
 
-    driver.get("www.ya.ru")
+    driver.get("http://ya.ru")
+    driver.get("https://stackoverflow.com/")
     driver.quit()
+

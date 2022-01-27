@@ -1,5 +1,5 @@
 FROM python:3.9
-COPY requirements.txt .
+COPY . code
 RUN python3 -m pip install --upgrade pip
+WORKDIR code
 RUN pip3 install -r requirements.txt
-WORKDIR "/code/ui_autotests"
