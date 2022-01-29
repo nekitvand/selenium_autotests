@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from selenium.webdriver.common.by import By
 from helpers.find_actions import FindAction
 from helpers.element_actions import ElementAction
+from helpers.url_actions import UrlAction
 
 
 @dataclass()
@@ -18,4 +19,5 @@ class Base:
         self.driver = driver
         self.FindAction = FindAction(driver)
         self.ElementAction = ElementAction(driver)
+        self.UrlAction = UrlAction(driver)
 

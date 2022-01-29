@@ -12,18 +12,22 @@ class FindAction:
         self.test_url = None
 
     def find(self, locator, timeout=10):
+        """Поиск и ожидание единственного элемента"""
         return WebDriverWait(self.driver, timeout, poll_frequency=1). \
             until(EC.presence_of_element_located(locator))
 
     def find_visible(self, locator, timeout=10):
+        """Поиск и ожидание единственного видимого элемента """
         return WebDriverWait(self.driver, timeout, poll_frequency=1). \
             until(EC.visibility_of_element_located(locator))
 
     def finds(self, locator, timeout=10):
+        """Поиск и ожидание нескольких элементов"""
         return WebDriverWait(self.driver, timeout, poll_frequency=1). \
             until(EC.presence_of_all_elements_located(locator))
 
     def finds_visible(self, locator, timeout=10):
+        """Поиск и ожидание нескольких видимых элементов"""
         return WebDriverWait(self.driver, timeout, poll_frequency=1). \
             until(EC.visibility_of_all_elements_located(locator),
                   message=f"Can't find elements by locator {locator}")

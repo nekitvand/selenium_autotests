@@ -12,7 +12,7 @@ def determine_scope(fixture_name, config):
 
 def pytest_addoption(parser):
     parser.addoption('--browser', action="store", default="chrome")
-    parser.addoption('--remote_url', action="store", default='http://localhost:4444/wd/hub')
+    parser.addoption('--remote_url', action="store", default='http://selenoid:4444/wd/hub')
 
 
 @pytest.fixture(scope=determine_scope)
@@ -38,7 +38,6 @@ class Browser:
     def get_version_browser(self):
         selenoid_config = self.get_selenoid_json_config()
         self.version = selenoid_config[self.name]["default"]
-        return None
 
     def remote_browser(self, ):
         self.get_version_browser()
