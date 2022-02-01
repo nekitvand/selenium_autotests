@@ -6,6 +6,10 @@ from helpers.url_actions import UrlAction
 from helpers.alert_actions import AlertAction
 from helpers.action_chains import ActionChain
 from helpers.cookies_actions import CookiesAction
+from helpers.css_actions import CssAction
+from helpers.keys_actions import KeysAction
+from helpers.execute_script_actions import ExecuteScript
+from helpers.select_actions import SelectAction
 
 
 @dataclass()
@@ -26,5 +30,9 @@ class Base:
         self.AlertAction = AlertAction(driver)
         self.ActionChain = ActionChain(driver)
         self.CookiesAction = CookiesAction(driver)
+        self.CssAction = CssAction()
+        self.KeysAction = KeysAction()
+        self.ExecuteScript = ExecuteScript(driver)
+        self.SelectAction = SelectAction(driver)
 
 
