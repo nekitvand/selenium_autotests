@@ -29,5 +29,4 @@ class FindAction:
     def finds_visible(self, locator, timeout=10):
         """Поиск и ожидание нескольких видимых элементов"""
         return WebDriverWait(self.driver, timeout, poll_frequency=1). \
-            until(EC.visibility_of_all_elements_located(locator),
-                  message=f"Can't find elements by locator {locator}")
+            until(EC.visibility_of_all_elements_located(locator))
