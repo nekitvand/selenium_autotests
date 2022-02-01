@@ -5,6 +5,7 @@ from helpers.element_actions import ElementAction
 from helpers.url_actions import UrlAction
 from helpers.alert_actions import AlertAction
 from helpers.action_chains import ActionChain
+from helpers.cookies_actions import CookiesAction
 
 
 @dataclass()
@@ -24,4 +25,6 @@ class Base:
         self.UrlAction = UrlAction(driver)
         self.AlertAction = AlertAction(driver)
         self.ActionChain = ActionChain(driver)
+        self.CookiesAction = CookiesAction(driver)
+
 
