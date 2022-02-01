@@ -3,6 +3,8 @@ from selenium.webdriver.common.by import By
 from helpers.find_actions import FindAction
 from helpers.element_actions import ElementAction
 from helpers.url_actions import UrlAction
+from helpers.alert_actions import AlertAction
+from helpers.action_chains import ActionChain
 
 
 @dataclass()
@@ -20,4 +22,6 @@ class Base:
         self.FindAction = FindAction(driver)
         self.ElementAction = ElementAction(driver)
         self.UrlAction = UrlAction(driver)
+        self.AlertAction = AlertAction(driver)
+        self.ActionChain = ActionChain(driver)
 
