@@ -31,7 +31,7 @@ _____________________________________
 <img src="https://sun9-3.userapi.com/impg/cbkbITil9guOYXKoMWNIXTGIWrf6tvJ5PGl_Dw/ZSaPioWshkk.jpg?size=2546x1122&quality=96&sign=c799313cfe19f1c2f34770ea8dddf3ca" border ="0"></img>
 
 
-2. Запускаем shell скрипт `sh selenoid_images.sh`. Скрипт скачает необходимые image с браузерами, которые будут использоваться для создания контейнеров.Скрипт собирает default версии браузеров, указанных в `config/browsers.json`
+2. Скрипт автоматически скачает необходимые image с браузерами, которые будут использоваться для создания контейнеров.Скрипт собирает default версии браузеров, указанных в `config/browsers.json`
 3. Вводим в консоль команду `docker exec -it ui-autotests <ваша_команда>`,где вместо `<ваша команда>` подставляем неообходимую команду для тест-комплекта. Как пример:  `docker exec -it ui-autotests pytest`
 На `http://localhost:8080/#/` вы сможете увидеть запущенные контейнеры с браузерами, в которых запущены тестовые сценарии
 <img src="https://sun1-18.userapi.com/impg/iDej7lu0IGLKZel6Rl0-3edLvBCHo9DhD6s1tg/i8VASmDVR3c.jpg?size=2560x1072&quality=96&sign=907b74e28ffc6d9026efba90b1a5cc2a" border ="0"></img>
@@ -44,10 +44,9 @@ _____________________________________
 1. Устанавливаем локально Python. Подробнее на `https://www.python.org/downloads/`
 2. В папке проекта запускаем команду  `python -m pip install --upgrade pip` для обновления pip
 3. В папке проекта запуска команду `pip3 install -r requirements.txt` для установки зависимостей
-4. Создаем новую сеть для Docker с помощью команды `docker network create selenoid`
-5. Загружаем образ с браузером. Допустим `docker pull selenoid/chrome:97.0`
-6. Вводим команду для запуска автотестов. Допустим `python pytest`
-7. После прогона автотестов, результаты можно посмотреть по адресу `http://localhost:5252/allure-docker-service-ui/`
+4. Загружаем образ с браузером. Допустим `docker pull selenoid/chrome:106.0`
+5. Вводим команду для запуска автотестов. Допустим `python pytest`
+6. После прогона автотестов, результаты можно посмотреть по адресу `http://localhost:5252/allure-docker-service-ui/`
 
 ### Опции ###
 

@@ -1,36 +1,27 @@
 version: '3'
 
 
-networks:
-  selenoid:
-    external:
-      name: selenoid
-
 services:
   selenoid:
-    networks:
-      selenoid: null
-    image: aerokube/selenoid:latest-release
+    image: "aerokube/selenoid"
+    network_mode: bridge
     ports:
       - "4444:4444"
     volumes:
-      - ./config/browsers.json:/etc/selenoid/browsers.json
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./config/video:/opt/selenoid/video
-      - ./config/logs:/opt/selenoid/logs"
-    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs","-container-network", "selenoid"]
+      - "./config/browsers.json:/etc/selenoid/browsers.json"
+      - "/var/run/docker.sock:/var/run/docker.sock"
 
   selenoid-ui:
-    networks:
-      selenoid: null
-    image: aerokube/selenoid-ui:latest-release
+    image: "aerokube/selenoid-ui"
+    network_mode: bridge
     links:
       - selenoid
     ports:
       - "8080:8080"
-    command: ["--selenoid-uri", "http://selenoid:4444"]
+    command: [ "--selenoid-uri", "http://selenoid:4444" ]
 
   ui-autotest:
+    network_mode: bridge
     stdin_open: true # docker run -i
     tty: true
     container_name: ui-autotests
@@ -43,14 +34,13 @@ services:
       - allure
       - selenoid-ui
       - selenoid
-    networks:
-      selenoid: null
     volumes:
       - ./:/code
 
 
   allure:
     image: "frankescobar/allure-docker-service"
+    network_mode: bridge
     environment:
       CHECK_RESULTS_EVERY_SECONDS: 1
       KEEP_HISTORY: 1
@@ -59,15 +49,13 @@ services:
     volumes:
       - ./allure-results:/app/allure-results
       - ./allure-reports:/app/default-reports
-    networks:
-      selenoid: null
 
   allure-ui:
     image: "frankescobar/allure-docker-service-ui"
+    network_mode: bridge
     environment:
       ALLURE_DOCKER_PUBLIC_API_URL: "http://localhost:5050"
       ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
     ports:
       - "5252:5252"
-    networks:
-      selenoid: null
+
